@@ -1,12 +1,12 @@
 langchain
-langchain-core
 langchain-community
-pypdf
-pymupdf
+langchain-core
 langchain-groq
-chromadb==0.4.24
+langchain-text-splitters
+faiss-cpu
 sentence-transformers
+pypdf
 streamlit
 python-dotenv
 groq
-tiktoken
+huggingface-hub

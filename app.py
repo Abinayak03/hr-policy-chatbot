@@ -13,29 +13,7 @@ from rag_pipeline import (
     build_rag_chain,
     ask_question
 )
-from ingest import (
-    load_document,
-    chunk_documents,
-    load_embedding_model,
-    store_in_chromadb
-)
 
-# ── PAGE CONFIG ───────────────────────────────
-st.set_page_config(
-    page_title="HR Policy Assistant",
-    page_icon="📋",
-    layout="centered"
-)
-
-# ── AUTO BUILD CHROMADB IF MISSING ────────────
-if not os.path.exists("chroma_db"):
-    with st.spinner("⚙️ Building knowledge base (first time setup)..."):
-        pages      = load_document("data/hr_policy_document.pdf")
-        chunks     = chunk_documents(pages)
-        embeddings = load_embedding_model()
-        store_in_chromadb(chunks, embeddings)
-
-# ── rest of your app.py stays exactly the same ──
 
 # ── PAGE CONFIG ───────────────────────────────
 st.set_page_config(
