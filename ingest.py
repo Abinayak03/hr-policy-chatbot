@@ -68,27 +68,23 @@ def load_embedding_model():
 
 # ── STEP 5: STORE IN CHROMADB ─────────────────
 def store_in_chromadb(chunks, embeddings):
-    """
-    Embeds all chunks and stores them in ChromaDB.
-    - If chroma_db/ folder exists → deletes and rebuilds (fresh start)
-    - Saves to disk so we never re-embed again
-    """
     print(f"\n💾 Storing {len(chunks)} chunks in ChromaDB...")
-    print(f"   Location: {CHROMA_DIR}/")
 
-    # Delete old DB if exists (clean rebuild)
     if os.path.exists(CHROMA_DIR):
         import shutil
         shutil.rmtree(CHROMA_DIR)
-        print(f"   ♻️  Old ChromaDB cleared — rebuilding fresh...")
+        print(f"   ♻️  Old ChromaDB cleared...")
 
-    # Create ChromaDB from chunks + embeddings
-    vectorstore = Chroma.from_documents(
-        documents=chunks,
-        embedding=embeddings,
-        persist_directory=CHROMA_DIR
+    import chromadb
+    client = chromadb.PersistentClient(path=CHROMA_DIR)
+
+    vectorstore = Chroma(
+        client=client,
+        collection_name="hr_policy",
+        embedding_function=embeddings,
     )
 
+    vectorstore.add_documents(chunks)
     print(f"✅ ChromaDB created and saved to '{CHROMA_DIR}/'")
     return vectorstore
 

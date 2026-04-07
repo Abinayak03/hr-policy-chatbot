@@ -30,12 +30,16 @@ def load_vectorstore():
         encode_kwargs={"normalize_embeddings": True}
     )
 
+    import chromadb
+    client = chromadb.PersistentClient(path=CHROMA_DIR)
+
     vectorstore = Chroma(
-        persist_directory=CHROMA_DIR,
-        embedding_function=embeddings
+        client=client,
+        collection_name="hr_policy",
+        embedding_function=embeddings,
     )
 
-    print(f"✅ ChromaDB loaded — {vectorstore._collection.count()} chunks available.")
+    print(f"✅ ChromaDB loaded successfully!")
     return vectorstore
 
 

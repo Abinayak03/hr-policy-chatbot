@@ -4,7 +4,7 @@ langchain-community
 pypdf
 pymupdf
 langchain-groq
-chromadb
+chromadb==0.4.24
 sentence-transformers
 streamlit
 python-dotenv
