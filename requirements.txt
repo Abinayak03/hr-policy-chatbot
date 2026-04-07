@@ -1,0 +1,12 @@
+langchain
+langchain-core
+langchain-community
+pypdf
+pymupdf
+langchain-groq
+chromadb
+sentence-transformers
+streamlit
+python-dotenv
+groq
+tiktoken
